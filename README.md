@@ -1,2 +1,2 @@
-### Pokemon
+# Pokemon
 ## Sample project
