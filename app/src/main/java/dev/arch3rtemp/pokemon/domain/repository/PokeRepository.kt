@@ -7,5 +7,7 @@ interface PokeRepository {
 
     suspend fun getPokes(): Resource<List<Pokemon>>
 
+    suspend fun updatePoke(pokemon: Pokemon)
+
     fun loadPoke(id: Int): Resource<Pokemon>
 }

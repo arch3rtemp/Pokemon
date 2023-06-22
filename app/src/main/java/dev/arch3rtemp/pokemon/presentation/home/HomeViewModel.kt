@@ -1,11 +1,14 @@
 package dev.arch3rtemp.pokemon.presentation.home
 
+import androidx.annotation.ColorRes
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dev.arch3rtemp.pokemon.domain.model.Pokemon
 import dev.arch3rtemp.pokemon.domain.useCase.GetPokesUseCase
+import dev.arch3rtemp.pokemon.domain.useCase.UpdatePokeUseCase
 import dev.arch3rtemp.pokemon.util.Resource
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
@@ -46,9 +49,11 @@ class HomeViewModel @Inject constructor(
     private fun getPokemons() {
         viewModelScope.launch(coroutineExceptionHandler) {
             _state.value = _state.value?.copy(homeState = HomeContract.HomeState.Loading)
+
             val pokemons = withContext(Dispatchers.IO) {
                 getPokesUseCase.invoke()
             }
+
             when(pokemons) {
                 is Resource.Error -> {
                     _state.value = _state.value?.copy(homeState = HomeContract.HomeState.Error(message = pokemons.message!!))

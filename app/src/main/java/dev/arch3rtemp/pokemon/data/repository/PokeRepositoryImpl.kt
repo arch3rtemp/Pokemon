@@ -39,6 +39,10 @@ class PokeRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun updatePoke(pokemon: Pokemon) {
+        localDataSource.updatePokemon(pokemon)
+    }
+
     override fun loadPoke(id: Int): Resource<Pokemon> {
         return try {
             Resource.Success(localDataSource.loadPokemon(id))

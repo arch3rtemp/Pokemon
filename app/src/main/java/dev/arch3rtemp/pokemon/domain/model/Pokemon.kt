@@ -1,5 +1,6 @@
 package dev.arch3rtemp.pokemon.domain.model
 
+import androidx.annotation.ColorInt
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -14,9 +15,12 @@ data class Pokemon(
     @PrimaryKey(autoGenerate = false)
     val id: Int,
     val name: String,
+    @Json(name = "base_experience")
+    val baseExperience: Int,
+    val height: Int,
+    val weight: Int,
     @Json(name = "sprites")
     val image: SpriteResponse,
-    var dominantColor: Int?,
     @TypeConverters(RoomJsonConverter::class)
     @Json(name = "types")
     @ColumnInfo(name = "types")

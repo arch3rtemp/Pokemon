@@ -6,6 +6,8 @@ interface PokeLocalDataSource {
 
     suspend fun savePokemons(pokes: List<Pokemon>)
 
+    suspend fun updatePokemon(poke: Pokemon)
+
     fun loadPokemons(): List<Pokemon>
 
     fun loadPokemon(id: Int): Pokemon

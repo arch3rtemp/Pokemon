@@ -4,6 +4,8 @@ import android.content.res.Resources
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.View
+import androidx.annotation.ColorRes
+import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -13,6 +15,7 @@ import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import dev.arch3rtemp.pokemon.R
+import dev.arch3rtemp.pokemon.domain.model.Pokemon
 import dev.arch3rtemp.pokemon.presentation.details.DetailsFragment
 import dev.arch3rtemp.pokemon.util.ShimmerHelper
 import kotlinx.coroutines.channels.consumeEach
@@ -40,8 +43,8 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun setupRecyclerView(view: View) {
-        homeAdapter = HomeAdapter {
-            navigateToDetails(it)
+        homeAdapter = HomeAdapter { position ->
+            navigateToDetails(position)
         }
 
         rvHomeList = view.findViewById(R.id.rvHomeList)
@@ -65,12 +68,17 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     }
 
     private fun navigateToDetails(id: Int) {
-        DetailsFragment.newInstance(id)
+        val detailsFragment = DetailsFragment.newInstance(id)
+        parentFragmentManager
+            .commit {
+                replace(R.id.fragmentContainer, detailsFragment)
+                addToBackStack(detailsFragment.tag)
+            }
     }
 
     private fun renderState(state: HomeContract.HomeState) {
 
-        when(state) {
+        when (state) {
             HomeContract.HomeState.Idle -> Unit
             HomeContract.HomeState.Loading -> showShimmer()
             HomeContract.HomeState.Empty -> hideShimmer()
@@ -84,7 +92,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
 
     private fun renderEffect(effect: HomeContract.Effect) {
 
-        when(effect) {
+        when (effect) {
             is HomeContract.Effect.ShowSnackBar -> {
                 Snackbar.make(requireView(), effect.message, Snackbar.LENGTH_LONG).show()
             }

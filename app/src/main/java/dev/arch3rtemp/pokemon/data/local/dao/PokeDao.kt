@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Update
 import dev.arch3rtemp.pokemon.domain.model.Pokemon
 
 @Dao
@@ -11,6 +12,9 @@ interface PokeDao {
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPokes(pokes: List<Pokemon>)
+
+    @Update
+    suspend fun updatePoke(poke: Pokemon)
 
     @Query("SELECT * FROM poke_table")
     fun selectPokes(): List<Pokemon>

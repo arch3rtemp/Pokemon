@@ -11,6 +11,10 @@ class PokeLocalDataSourceImpl @Inject constructor(
         pokeDao.insertPokes(pokes)
     }
 
+    override suspend fun updatePokemon(poke: Pokemon) {
+        pokeDao.updatePoke(poke)
+    }
+
     override fun loadPokemons(): List<Pokemon> {
         return pokeDao.selectPokes()
     }

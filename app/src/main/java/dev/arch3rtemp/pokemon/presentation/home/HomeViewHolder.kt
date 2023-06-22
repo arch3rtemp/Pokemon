@@ -4,6 +4,7 @@ import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.view.View
+import androidx.annotation.ColorInt
 import androidx.palette.graphics.Palette
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -20,15 +21,11 @@ class HomeViewHolder(
     private val clickListener: (Int) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    private var dominantColor: Int = Color.GRAY
+    @ColorInt private var dominantColor: Int = Color.GRAY
 
     fun bind(pokemon: Pokemon) = with(binding) {
 
-        if (pokemon.dominantColor != null) {
-            cardView.setCardBackgroundColor(pokemon.dominantColor!!)
-        } else {
-            cardView.setCardBackgroundColor(dominantColor)
-        }
+        cardView.setCardBackgroundColor(dominantColor)
 
         setPokemonImages(pokemon.image.frontDefault)
 
@@ -44,7 +41,6 @@ class HomeViewHolder(
         }
 
         cardView.setOnClickListener {
-            pokemon.dominantColor = dominantColor
             clickListener(pokemon.id)
         }
     }
