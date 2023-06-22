@@ -7,7 +7,7 @@
     android:background="@color/bg_color"
     tools:context=".presentation.home.HomeFragment">
 
-    <androidx.recyclerview.widget.RecyclerView
+    <dev.arch3rtemp.pokemon.util.PaginationRecyclerView
         android:id="@+id/rvHomeList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

@@ -8,8 +8,8 @@ import javax.inject.Inject
 class PokeRemoteDataSourceImpl @Inject constructor(
     private val pokeService: PokeService
 ) : PokeRemoteDataSource {
-    override suspend fun fetchPokeList(limit: Int): PokemonResponse {
-        return pokeService.getPokemonList(limit)
+    override suspend fun fetchPokeList(limit: Int, offset: Int): PokemonResponse {
+        return pokeService.getPokemonList(limit, offset)
     }
 
     override suspend fun fetchPokemon(id: Int): Pokemon {

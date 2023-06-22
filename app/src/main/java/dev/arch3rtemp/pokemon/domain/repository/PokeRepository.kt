@@ -5,7 +5,7 @@ import dev.arch3rtemp.pokemon.util.Resource
 
 interface PokeRepository {
 
-    suspend fun getPokes(): Resource<List<Pokemon>>
+    suspend fun getPokes(page: Int): Resource<List<Pokemon>>
 
     suspend fun updatePoke(pokemon: Pokemon)
 

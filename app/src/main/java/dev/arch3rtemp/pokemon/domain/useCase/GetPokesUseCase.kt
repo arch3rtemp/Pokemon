@@ -7,7 +7,7 @@ import dev.arch3rtemp.pokemon.util.Resource
 class GetPokesUseCase(
     private val pokeRepository: PokeRepository
 ) {
-    suspend operator fun invoke(): Resource<List<Pokemon>> {
-        return pokeRepository.getPokes()
+    suspend operator fun invoke(page: Int): Resource<List<Pokemon>> {
+        return pokeRepository.getPokes(page)
     }
 }

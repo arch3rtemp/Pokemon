@@ -2,21 +2,20 @@ package dev.arch3rtemp.pokemon.presentation.home
 
 import android.content.res.Resources
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.View
-import androidx.annotation.ColorRes
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.commit
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.RecyclerView
+import androidx.room.util.copy
 import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import dev.arch3rtemp.pokemon.R
-import dev.arch3rtemp.pokemon.domain.model.Pokemon
 import dev.arch3rtemp.pokemon.presentation.details.DetailsFragment
+import dev.arch3rtemp.pokemon.util.PaginationRecyclerView
 import dev.arch3rtemp.pokemon.util.ShimmerHelper
 import kotlinx.coroutines.channels.consumeEach
 import kotlinx.coroutines.launch
@@ -32,7 +31,7 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
     private val viewModel by viewModels<HomeViewModel>()
     private var homeAdapter: HomeAdapter? = null
 
-    private lateinit var rvHomeList: RecyclerView
+    private lateinit var rvHomeList: PaginationRecyclerView
     private lateinit var shimmerList: ShimmerFrameLayout
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -50,6 +49,12 @@ class HomeFragment : Fragment(R.layout.fragment_home) {
         rvHomeList = view.findViewById(R.id.rvHomeList)
         shimmerList = view.findViewById(R.id.shimmerList)
         rvHomeList.adapter = homeAdapter
+
+        rvHomeList.setOnPageChangeListener(object : PaginationRecyclerView.OnPageChangeListener {
+            override fun onPageChange(page: Int) {
+                viewModel.setEvent(HomeContract.Event.OnLoadNextPage(page))
+            }
+        })
     }
 
     private fun setupObservers() {

@@ -14,9 +14,10 @@ class PokeRepositoryImpl @Inject constructor(
     private val localDataSource: PokeLocalDataSource
 ) : PokeRepository {
 
-    override suspend fun getPokes(): Resource<List<Pokemon>> {
+    override suspend fun getPokes(page: Int): Resource<List<Pokemon>> {
         return try {
-            val response = remoteDataSource.fetchPokeList(Constants.POKEMONS_LOAD_LIMIT)
+            val offset = (page - 1) * Constants.POKEMONS_LOAD_LIMIT
+            val response = remoteDataSource.fetchPokeList(Constants.POKEMONS_LOAD_LIMIT, offset)
 
             val results = response.results
             val pokemonList: MutableList<Pokemon> = mutableListOf()

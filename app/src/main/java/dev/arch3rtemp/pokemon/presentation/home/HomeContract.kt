@@ -16,7 +16,7 @@ class HomeContract {
     }
 
     sealed class Event : UiEvent {
-        object OnClickPoke : Event()
+        data class OnLoadNextPage(val page: Int) : Event()
     }
 
     sealed class Effect : UiEffect {
