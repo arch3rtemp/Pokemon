@@ -1,22 +1,21 @@
 # Pokemon
-## Sample project
+## A Sample Project
 
-### Project description
-This educating project uses public [Pokemon API](https://pokeapi.co)
-It consists of **Home** and **Details** screens:
-1. Home page lists all the Pokemons with names and images
-2. Details page shows additional details of chosen Pokemon. 
-Project is based on Clean Architecture as architectural pattern
-Presentation layer is structured according to MVVM+MVI pattern
+### Project Description
+This educational project utilizes the public [Pokemon API](https://pokeapi.co). It consists of two main screens: **Home** and **Details**.
+1. The Home page lists all the Pokemons, displaying their names and images.
+2. The Details page provides additional information about the selected Pokemon.
 
-### This sample project uses technologies:
-* **Kotlin** as the main language in the project
-* **Retrofit** for network communication
-* **Dagger-Hilt** for dependency injection
-* **Moshi** for converting json format
-* **Glide** as image downloading tool
-* **Room** for storage
-* **Facebook Shimmer** for displaying loading state
+The project is based on the Clean Architecture as its architectural pattern. The presentation layer is structured according to the MVVM+MVI pattern.
+
+### Technologies Used in This Sample Project
+* **Kotlin** as the primary programming language.
+* **Retrofit** for network communications.
+* **Dagger-Hilt** for dependency injection.
+* **Moshi** for JSON conversion.
+* **Glide** for image downloading.
+* **Room** for local data storage.
+* **Facebook Shimmer** for displaying the loading state.
 
 ### How to Install and Run the Project
-The project should be cloned from Github and run in Android Studio.
+The project can be cloned from GitHub and run in Android Studio.
